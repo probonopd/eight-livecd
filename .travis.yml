@@ -1,0 +1,11 @@
+language: ruby
+
+services:
+  - docker
+
+before_install:
+  - docker pull centos:centos8
+  - docker run -v ${PWD}:/eight-livecd/ --name=cent -dt centos:centos8
+
+script:
+  - docker exec cent /bin/sh -c "export TRAVIS=true; bash -ex /eight-livecd/run_in_docker.sh"
